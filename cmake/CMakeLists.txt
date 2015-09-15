@@ -256,15 +256,15 @@ ENABLE_TESTING()
 #########################################################################
 
 if (WIN32 OR CYGWIN)
-	set (LIBRARY_OUTPUT_PATH  ${CMAKE_BINARY_DIR}/bin)
+	set (LIBRARY_OUTPUT_PATH  ${dbus_BINARY_DIR}/bin)
 else (WIN32 OR CYGWIN)
-	set (LIBRARY_OUTPUT_PATH  ${CMAKE_BINARY_DIR}/lib)
+	set (LIBRARY_OUTPUT_PATH  ${dbus_BINARY_DIR}/lib)
 endif (WIN32 OR CYGWIN)
 
-set (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+set (EXECUTABLE_OUTPUT_PATH ${dbus_BINARY_DIR}/bin)
 
 # for including config.h and for includes like <dir/foo.h>
-include_directories( ${dbus_SOURCE_DIR}/.. ${CMAKE_BINARY_DIR} ${CMAKE_INCLUDE_PATH} )
+include_directories( ${dbus_SOURCE_DIR}/.. ${dbus_BINARY_DIR} ${CMAKE_INCLUDE_PATH} )
 
 # linker search directories
 link_directories(${DBUS_LIB_DIR} ${LIBRARY_OUTPUT_PATH} )
@@ -405,7 +405,7 @@ if (MSVC_IDE)
 		message(STATUS)
     endif(CMAKE_BUILD_TYPE MATCHES Debug)
 	set (TEST_PATH_FORCE FORCE)
-	FILE(REMOVE ${CMAKE_BINARY_DIR}/data/dbus-1/services)
+	FILE(REMOVE ${dbus_BINARY_DIR}/data/dbus-1/services)
 endif (MSVC_IDE)
 
 #### Find socket directories
@@ -490,7 +490,7 @@ add_definitions(${DBUS_BUS_CFLAGS})
 if (DBUS_BUILD_TESTS)
     # set variables used for the .in files (substituted by configure_file) in test/data:
     set(DBUS_TEST_EXEC ${EXECUTABLE_OUTPUT_PATH}${IDE_BIN})
-    set(DBUS_TEST_DATA ${CMAKE_BINARY_DIR}/test/data)
+    set(DBUS_TEST_DATA ${dbus_BINARY_DIR}/test/data)
     set(TEST_SOCKET_DIR ${DBUS_SESSION_SOCKET_DIR} )
     set(TEST_LAUNCH_HELPER_BINARY ${EXECUTABLE_OUTPUT_PATH}/dbus-daemon-launch-helper-test)
     set(TEST_BUS_LAUNCH_BINARY ${EXECUTABLE_OUTPUT_PATH}/dbus-launch${EXEEXT})
@@ -511,8 +511,8 @@ set (DBUS_INTERNAL_CLIENT_DEFINITIONS "-DDBUS_COMPILATION")
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h )
 
 if (WIN32)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dbus-env.bat.cmake ${CMAKE_BINARY_DIR}/bin/dbus-env.bat )
-install_files(/bin FILES ${CMAKE_BINARY_DIR}/bin/dbus-env.bat)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/dbus-env.bat.cmake ${dbus_BINARY_DIR}/bin/dbus-env.bat )
+install_files(/bin FILES ${dbus_BINARY_DIR}/bin/dbus-env.bat)
 endif()
 
 add_definitions(-DHAVE_CONFIG_H=1)
@@ -550,7 +550,7 @@ message("        install bindir:           ${EXPANDED_BINDIR}                  "
 message("        install sysconfdir:       ${EXPANDED_SYSCONFDIR}              ")
 message("        install datadir:          ${EXPANDED_DATADIR}                 ")
 message("        source code location:     ${DBUS_SOURCE_DIR}                  ")
-message("        build dir:                ${CMAKE_BINARY_DIR}                 ")
+message("        build dir:                ${dbus_BINARY_DIR}                 ")
 message("        c compiler:               ${C_COMPILER}                       ")
 message("        cflags:                   ${CMAKE_C_FLAGS}                    ")
 message("        cflags debug:             ${CMAKE_C_FLAGS_DEBUG}              ")
@@ -632,5 +632,5 @@ INCLUDE(modules/CPackInstallConfig.cmake)
 
 add_custom_target(help-options
     cmake -LH 
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    WORKING_DIRECTORY ${dbus_BINARY_DIR}
 )

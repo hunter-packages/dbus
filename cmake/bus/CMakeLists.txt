@@ -19,7 +19,7 @@ SET (SERVICE_FILES test/data/valid-service-files)
 FILE(GLOB FILES "${dbus_SOURCE_DIR}/../${SERVICE_FILES}/*.service.in" )
 FOREACH(FILE ${FILES})	
 	GET_FILENAME_COMPONENT(FILENAME ${FILE} NAME_WE)
-	SET (TARGET ${CMAKE_BINARY_DIR}/data/dbus-1/services/${FILENAME}.service)
+	SET (TARGET ${dbus_BINARY_DIR}/data/dbus-1/services/${FILENAME}.service)
 	IF (CONFIG_VERBOSE)
 		MESSAGE("FROM: ${FILE}\nTO: ${TARGET}\n")
 	ENDIF (CONFIG_VERBOSE)
@@ -84,7 +84,7 @@ if(DBUS_ENABLE_STATS)
 endif(DBUS_ENABLE_STATS)
 
 include_directories(
-	${CMAKE_BINARY_DIR}
+	${dbus_BINARY_DIR}
 	${dbus_SOURCE_DIR}/..
 	${XML_INCLUDE_DIR}
 )

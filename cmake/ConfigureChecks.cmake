@@ -121,7 +121,7 @@ find_program(XMLTO xmlto)
 if(MSVC)
    SET(DBUS_VA_COPY_FUNC "_DBUS_VA_COPY_ASSIGN")
 else(MSVC)
-write_file("${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/cmake_try_compile.c" "#include <stdarg.h>
+write_file("${dbus_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/cmake_try_compile.c" "#include <stdarg.h>
 	#include <stdlib.h>
         static void f (int i, ...) {
 	va_list args1, args2;
@@ -137,13 +137,13 @@ write_file("${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/cmake_try_compi
 	}
 ")
 try_compile(DBUS_HAVE_VA_COPY
-            ${CMAKE_BINARY_DIR}
-            ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/cmake_try_compile.c)
+            ${dbus_BINARY_DIR}
+            ${dbus_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/cmake_try_compile.c)
 
 if(DBUS_HAVE_VA_COPY)
   SET(DBUS_VA_COPY_FUNC va_copy CACHE STRING "va_copy function")
 else(DBUS_HAVE_VA_COPY)
-  write_file("${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/cmake_try_compile.c" "#include <stdarg.h>
+  write_file("${dbus_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/cmake_try_compile.c" "#include <stdarg.h>
           #include <stdlib.h>
 	  static void f (int i, ...) {
 	  va_list args1, args2;
@@ -159,8 +159,8 @@ else(DBUS_HAVE_VA_COPY)
 	  }
   ")
   try_compile(DBUS_HAVE___VA_COPY
-              ${CMAKE_BINARY_DIR}
-              ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/cmake_try_compile.c)
+              ${dbus_BINARY_DIR}
+              ${dbus_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/cmake_try_compile.c)
   if(DBUS_HAVE___VA_COPY)
     SET(DBUS_VA_COPY_FUNC __va_copy CACHE STRING "va_copy function")
   else(DBUS_HAVE___VA_COPY)
@@ -173,7 +173,7 @@ endif(MSVC) # _not_ MSVC
 if (DBUS_ENABLE_ABSTRACT_SOCKETS)
 
   try_compile(HAVE_ABSTRACT_SOCKETS
-              ${CMAKE_BINARY_DIR}
+              ${dbus_BINARY_DIR}
               ${dbus_SOURCE_DIR}/modules/CheckForAbstractSockets.c)
 
 endif(DBUS_ENABLE_ABSTRACT_SOCKETS)
