@@ -1,4 +1,4 @@
-SET(DBUS_DIR ${CMAKE_SOURCE_DIR}/../dbus)
+SET(DBUS_DIR ${dbus_SOURCE_DIR}/../dbus)
 
 configure_file(${DBUS_DIR}/dbus-arch-deps.h.in ${CMAKE_CURRENT_BINARY_DIR}/dbus-arch-deps.h )
 
@@ -96,7 +96,7 @@ set (DBUS_LIB_HEADERS
 	${DBUS_DIR}/dbus-transport.h
 	${DBUS_DIR}/dbus-transport-protected.h
 	${DBUS_DIR}/dbus-watch.h
-	${CMAKE_BINARY_DIR}/config.h
+  ${dbus_BINARY_DIR}/config.h
 )
 if(UNIX)
 	set (DBUS_LIB_HEADERS ${DBUS_LIB_HEADERS} 
@@ -312,7 +312,7 @@ else(WIN32)
 endif(WIN32)
 
 if (DBUS_ENABLE_EMBEDDED_TESTS)
-	add_test_executable(test-dbus ${CMAKE_SOURCE_DIR}/../dbus/dbus-test-main.c ${DBUS_INTERNAL_LIBRARIES})
+	add_test_executable(test-dbus ${dbus_SOURCE_DIR}/../dbus/dbus-test-main.c ${DBUS_INTERNAL_LIBRARIES})
 	set_target_properties(test-dbus PROPERTIES COMPILE_FLAGS ${DBUS_INTERNAL_CLIENT_DEFINITIONS})
 ENDIF (DBUS_ENABLE_EMBEDDED_TESTS)
 
