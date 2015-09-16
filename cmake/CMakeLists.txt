@@ -601,6 +601,22 @@ if (MSVC)
 message("        build timestamp:          ${DBUS_BUILD_TIMESTAMP}             ")
 endif (MSVC)
 
+
+# Install pkgconfig file via CMake so that DBus can be searched by autoreconf projects
+set(bindir ${EXPANDED_BINDIR})
+set(libdir ${EXPANDED_LIBDIR})
+set(includedir ${EXPANDED_INCLUDEDIR})
+set(datarootdir ${EXPANDED_DATADIR})
+set(datadir ${EXPANDED_DATADIR})
+set(sysconfdir ${EXPANDED_SYSCONFDIR})
+set(dbus_daemondir ${DBUS_DAEMONDIR})
+set(VERSION ${DBUS_VERSION_STRING})
+set(LIBDBUS_LIBS "${CMAKE_THREAD_LIBS_INIT}")
+set(DBUS_STATIC_BUILD_CPPFLAGS "") # DBus only build shared with cmake 
+
+configure_file(${CMAKE_CURRENT_LIST_DIR}/../dbus-1.pc.in ${CMAKE_CURRENT_BINARY_DIR}/dbus-1.pc )
+install_files(/lib/pkgconfig FILES ${CMAKE_CURRENT_BINARY_DIR}/dbus-1.pc)
+
 MESSAGE(" ")
 if (DBUS_BUILD_TESTS)
     message("NOTE: building with unit tests increases the size of the installed library and renders it insecure.")
