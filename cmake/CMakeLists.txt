@@ -449,7 +449,7 @@ endif (WIN32)
 # and also to connect to. If this ever changes, it'll need to be split into
 # two variables, one for the listening address and one for the connecting
 # address.
-set (DBUS_SYSTEM_BUS_DEFAULT_ADDRESS "unix:path=${DBUS_LOCALSTATEDIR}/run/dbus/system_bus_socket" CACHE STRING "system bus default address")
+set (DBUS_SYSTEM_BUS_DEFAULT_ADDRESS "unix:path=/var/run/dbus/system_bus_socket" CACHE STRING "system bus default address")
 
 if (WIN32)
   set (DBUS_SESSION_BUS_LISTEN_ADDRESS "autolaunch:" CACHE STRING "session bus default listening address")
